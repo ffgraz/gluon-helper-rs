@@ -4,12 +4,11 @@
 
 use core::net::Ipv4Addr;
 use std::collections::HashMap;
-use std::io::Error;
+use std::time::Duration;
 
 use libarp::{client::ArpClient, interfaces::MacAddr};
 
 use arp_cache::update_cache;
-use futures::executor::block_on;
 
 mod arp_cache;
 
@@ -19,6 +18,8 @@ pub struct ArpResolver {
 }
 
 // TODO: make the individual resolves (arpcache, arpresolve) traits of resolver?
+
+const ONE_SECOND: Duration = Duration::new(1, 0);
 
 impl ArpResolver {
     pub fn new() -> Self {
@@ -36,13 +37,13 @@ impl ArpResolver {
                     Some(mac) => Some(*mac),
                     None => {
                         update_cache(&mut self.arp_cache);
-                        let result = self.arp_client.ip_to_mac(ip_addr, None);
+                        let result = self.arp_client.ip_to_mac(ip_addr, Some(ONE_SECOND));
                         match result.await {
                             Ok(mac) => {
                                 self.arp_cache.insert(ip_addr, mac);
                                 Some(mac)
                             }
-                            Err(err) => None
+                            Err(_err) => None
                         }
                     }
                 }

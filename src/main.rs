@@ -1,11 +1,13 @@
 #![feature(ip_in_core)]
 
-mod arp;
+use core::net::Ipv4Addr;
 
 use arp::ArpResolver;
-use core::net::Ipv4Addr;
+
+mod arp;
 
 fn main() {
     let mut resolver = ArpResolver::new();
+    resolver.ip4_to_mac("127.0.0.1".to_string().parse().unwrap());
     println!("Hello, world!");
 }
