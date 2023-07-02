@@ -16,18 +16,37 @@ struct ArpResolver {
     arp_client: ArpClient,
 }
 
+// TODO: make the individual resolves (arpcache, arpresolve) traits of resolver?
+
 impl ArpResolver {
-    fn new() -> Self {
+    pub fn new() -> Self {
         Self {
             arp_cache: HashMap::new().
             client: ArpClient::new().unwrap(),
         }
     }
+    
+  pub async fn ip4_to_mac(&mut self, ip_addr: Ipv4Addr) -> Option(MacAddr) {
+    match self.arp_cache.get(ip_addr) {
+        Some(mac) => {
+          return mac
+        },
+        None => {
+          let result = self.client.ip_to_mac(ip_addr, None);
+          match result.await.unwrap() {
+            Some(mac) => {
+              self.arp_cache.insert(ip_addr, mac);
+              return mac;
+            },
+            None => {
+              return None;
+            }
+          }
+          
+        }
+    }
+      let result = self.client.ip_to_mac(ip_addr, None);
+      return result.await.unwrap();
+  }
 }
 
-pub async fn ip4_to_mac(ip_addr: Ipv4Addr) -> Result<MacAddr, Error> {
-    let mut client = ArpClient::new().unwrap();
-
-    let result = client.ip_to_mac(ip_addr, None);
-    return result.await.unwrap();
-}
