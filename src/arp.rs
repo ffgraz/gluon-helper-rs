@@ -21,18 +21,18 @@ struct ArpResolver {
 impl ArpResolver {
     pub fn new() -> Self {
         Self {
-            arp_cache: HashMap::new().
-            client: ArpClient::new().unwrap(),
+            arp_cache: HashMap::new(),
+            arp_client: ArpClient::new().unwrap(),
         }
     }
     
-  pub async fn ip4_to_mac(&mut self, ip_addr: Ipv4Addr) -> Option(MacAddr) {
-    match self.arp_cache.get(ip_addr) {
+  pub async fn ip4_to_mac(&mut self, ip_addr: *Ipv4Addr) -> Option(*MacAddr) {
+    match self.arp_cache.get(&ip_addr) {
         Some(mac) => {
-          return mac
+          return Some(*mac)
         },
         None => {
-          let result = self.client.ip_to_mac(ip_addr, None);
+          let result = self.arp_client.ip_to_mac(ip_addr, None);
           match result.await.unwrap() {
             Some(mac) => {
               self.arp_cache.insert(ip_addr, mac);
@@ -41,12 +41,9 @@ impl ArpResolver {
             None => {
               return None;
             }
-          }
-          
+          }          
         }
-    }
-      let result = self.client.ip_to_mac(ip_addr, None);
-      return result.await.unwrap();
+    }.unwrap()
   }
 }
 
