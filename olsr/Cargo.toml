@@ -1,26 +1,24 @@
 [package]
-name = "gluon-helper"
+name = "olsr"
 version = "0.1.0"
 edition = "2021"
 
 [lib]
-name = "libgluonhelper"
+name = "libgluonolsrdhelper"
 path = "src/lib.rs"
 
 [[bin]]
-name = "gluon-helper"
+name = "gluon-olsr-debug"
+path = "src/debug.rs"
+
+[[bin]]
+name = "gluon-olsr"
 path = "src/main.rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-hyper = { version = "1.0.0-rc.3", features = ["full"] }
-tokio = { version = "1", features = ["full"] }
-http-body-util = "0.1.0-rc.2"
-reqwest = { version = "0.11.18", default-features = false, features = ["json"] }
-arp-toolkit = "0.3.1"
-futures = "0.3.28"
-pnet = { version = "0.33", features = ["std"] }
+gluon-helper = { path = ".." }
 
 # Read more at https://github.com/johnthagen/min-sized-rust
 [profile.release]

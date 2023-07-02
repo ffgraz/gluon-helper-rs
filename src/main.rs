@@ -2,9 +2,18 @@
 
 use core::net::Ipv4Addr;
 
-use arp::ArpResolver;
+use libgluonhelper::arp::ArpResolver;
 
 mod arp;
+
+/*
+
+TODO:
+cli with commands
+- fetch_json <url>: <json>
+- resolve_arp <ip>: mac
+
+ */
 
 fn main() {
     let mut resolver = ArpResolver::new();
