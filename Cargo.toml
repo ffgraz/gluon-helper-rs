@@ -21,6 +21,7 @@ reqwest = { version = "0.11.18", default-features = false, features = ["json"] }
 arp-toolkit = "0.3.1"
 futures = "0.3.28"
 pnet = { version = "0.33", features = ["std"] }
+clap = { version = "4.3.11", features = ["derive"] }
 
 # Read more at https://github.com/johnthagen/min-sized-rust
 [profile.release]
