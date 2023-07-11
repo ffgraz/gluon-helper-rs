@@ -1,7 +1,7 @@
-use core::net::Ipv4Addr;
 use std::collections::HashMap;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
+use std::net::Ipv4Addr;
 
 use libarp::interfaces::MacAddr;
 

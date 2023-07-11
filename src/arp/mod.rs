@@ -2,8 +2,8 @@
 // First checks for IP in /proc/arp, then tries to resolve using arp-toolkit
 // Keeps cache in memory
 
-use core::net::Ipv4Addr;
 use std::collections::HashMap;
+use std::net::Ipv4Addr;
 use std::time::Duration;
 
 use libarp::{client::ArpClient, interfaces::MacAddr};

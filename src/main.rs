@@ -1,6 +1,6 @@
-#![feature(ip_in_core)]
+// #![feature(ip_in_core)]
 
-use core::net::Ipv4Addr;
+use std::net::Ipv4Addr;
 
 use std::ffi::OsStr;
 use std::ffi::OsString;
