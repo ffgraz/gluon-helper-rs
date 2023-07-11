@@ -68,7 +68,7 @@ fn main() {
         Commands::Add { path } => {
             println!("Adding {path:?}");
         }
-        Commands::Stash(stash) => {
+        Commands::OLSR(stash) => {
             let stash_cmd = stash.command.unwrap_or(StashCommands::Push(stash.push));
             match stash_cmd {
                 StashCommands::Push(push) => {
@@ -139,7 +139,7 @@ enum Commands {
         #[arg(required = true)]
         path: Vec<PathBuf>,
     },
-    Stash(StashArgs),
+    OLSR(StashArgs),
     #[command(external_subcommand)]
     External(Vec<OsString>),
 }
